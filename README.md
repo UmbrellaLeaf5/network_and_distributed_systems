@@ -1,1 +1,1 @@
-# template_repo_cpp_lessons
+# Сетевые и распределенные системы

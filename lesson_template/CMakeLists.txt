@@ -10,9 +10,11 @@ include(${REPO_FOLDER}/settings.cmake)
 # Add executable
 file(GLOB_RECURSE SUBDIRS LIST_DIRECTORIES true ".")
 
+string(REPLACE ";" "|" PREFIX "${TASK_PREFIXES}")
+
 foreach(SUBDIR ${SUBDIRS})
   if(IS_DIRECTORY ${SUBDIR})
-    if("${SUBDIR}" MATCHES "${PROJECT_NAME}/(${TASK_PREFIX}|${EXAMPLE_PREFIX})[^/]*$")
+    if("${SUBDIR}" MATCHES "${PROJECT_NAME}/(${PREFIX})[^/]*$")
       get_filename_component(SUBPROJECT_NAME ${SUBDIR} NAME)
       set(SUBPROJECT_NAME "${PROJECT_NAME}_${SUBPROJECT_NAME}")
 
@@ -21,6 +23,18 @@ foreach(SUBDIR ${SUBDIRS})
         ${SUBDIR}/${HEADERS_FORMAT}
         ${SUBDIR}/${SOURCES_FORMAT}
       )
+
+      set(SUBPROJECT_SOURCES)
+
+      foreach(ITEM_HEADER IN LISTS HEADERS_FORMAT)
+        file(GLOB ITEM_HEADER_FORMAT_SOURCES ${SUBDIR}/${ITEM_HEADER})
+        list(APPEND SUBPROJECT_SOURCES ${ITEM_HEADER_FORMAT_SOURCES})
+      endforeach()
+
+      foreach(ITEM_SOURCE IN LISTS SOURCES_FORMAT)
+        file(GLOB ITEM_SOURCE_FORMAT_SOURCES ${SUBDIR}/${ITEM_SOURCE})
+        list(APPEND SUBPROJECT_SOURCES ${ITEM_SOURCE_FORMAT_SOURCES})
+      endforeach()
 
       add_executable(${SUBPROJECT_NAME} ${SUBPROJECT_SOURCES})
 
@@ -31,4 +45,4 @@ foreach(SUBDIR ${SUBDIRS})
 endforeach()
 
 # For this project
-CopyExtraFiles()
+CopyExtraFiles({})
