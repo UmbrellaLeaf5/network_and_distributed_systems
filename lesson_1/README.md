@@ -37,8 +37,8 @@ int sendto(int sockd, void *addr, int len, int flags,
 * `res` : `>= 0` - реально отправлено; `< 0` - ошибка
 
 ```C++
-int recvto(int sockd, void *addr, int maxlen,  int flags,              
-           struct sockaddr *from, int *maxfromlen);
+int recvfrom(int sockd, void *addr, int maxlen, int flags,              
+             struct sockaddr *from, int *maxfromlen);
 ```
 * `maxfromlen`: максимальная длина адреса
 * `res` : `>= 0` - принято; `< 0` - ошибка
