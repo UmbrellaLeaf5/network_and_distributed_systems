@@ -10,6 +10,7 @@
     "qmlc",
     "qmlcache",
     "qmlproject",
+    "recvfrom",
     "recvto",
     "sendto",
     "smod",
