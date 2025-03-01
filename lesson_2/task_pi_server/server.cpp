@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
   server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
   // создание UDP сокета
-  int desk_sock = socket(AF_INET, SOCK_DGRAM, 0);  // дескриптор сокета
+  ssize_t desk_sock = socket(AF_INET, SOCK_DGRAM, 0);  // дескриптор сокета
   if (desk_sock < 0) {
     std::cerr << "Can't create socket, " << strerror(errno) << std::endl;
     return 1;
@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
   for (;;) {
     SendData data;
 
-    unsigned int client_len = sizeof(client_addr);
+    size_t client_len = sizeof(client_addr);
 
     // получение данных от клиента
     ssize_t bytes_received =

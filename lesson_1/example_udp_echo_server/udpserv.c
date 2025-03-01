@@ -16,15 +16,18 @@ int main() {
       n;       // количество полученных байт
 
   char line[1000];  // буфер для хранения данных
+
   // структуры для хранения адресов сервера и клиента
   struct sockaddr_in servaddr, cliaddr;
 
   // обнуление структуры адреса сервера
   bzero(&servaddr, sizeof(servaddr));
   servaddr.sin_family = AF_INET;  // установка семейства протоколов в IPv4
+
   // установка номера порта сервера
   // htons() преобразует порядок байтов из хостового в сетевой
   servaddr.sin_port = htons(52020);
+
   // установка IP-адреса сервера в любой доступный
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 

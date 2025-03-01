@@ -66,8 +66,10 @@ int main(int argc, char **argv) {
   bzero(&cliaddr, sizeof(cliaddr));
 
   cliaddr.sin_family = AF_INET;  // установка семейства протоколов в IPv4
+
   // установка порта клиента в 0 (автоматический выбор)
   cliaddr.sin_port = htons(0);
+
   // установка IP-адреса клиента в любой доступный
   cliaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
@@ -97,8 +99,8 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
-  // вывод полученных данных
   printf("%s\n", recv_line);
   close(sockfd);
+
   return 0;
 }

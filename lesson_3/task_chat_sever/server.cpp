@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
   server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
   // создание TCP сокета
-  int desk_sock = socket(AF_INET, SOCK_STREAM, 0);  // дескриптор сокета
+  ssize_t desk_sock = socket(AF_INET, SOCK_STREAM, 0);  // дескриптор сокета
   if (desk_sock < 0) {
     std::cerr << "Can't create socket, " << strerror(errno) << std::endl;
 
@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
   }
 
   for (;;) {
-    unsigned int client_len = sizeof(client_addr);
+    size_t client_len = sizeof(client_addr);
 
     ssize_t curr_desk_sock =
         accept(desk_sock, (struct sockaddr*)&client_addr, &client_len);
