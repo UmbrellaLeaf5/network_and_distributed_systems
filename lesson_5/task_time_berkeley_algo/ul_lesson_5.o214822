@@ -1,0 +1,76 @@
+START_TIME ON RANK_1: 10
+
+CLIENT_1: delta_to_send: 0
+
+START_TIME ON RANK_2: 12
+
+CLIENT_2: delta_to_send: 2
+
+START_TIME ON RANK_3: 18
+
+CLIENT_3: delta_to_send: 8
+
+START_TIME ON RANK_0: 10
+
+SERVER: received_delta: 0
+	client: 1
+
+SERVER: received_delta: 2
+	client: 2
+
+SERVER: received_delta: 8
+	client: 3
+
+SERVER: received_delta: 21
+	client: 4
+
+SERVER: received_delta: 9
+	client: 5
+
+SERVER: ACCUM: 7
+
+SERVER: correct_delta_to_send: 7
+	client: 1
+
+SERVER: correct_delta_to_send: 5
+	client: 2
+
+SERVER: correct_delta_to_send: -1
+	client: 3
+
+SERVER: correct_delta_to_send: -14
+	client: 4
+
+SERVER: correct_delta_to_send: -2
+	client: 5
+
+SERVER: FINAL_TIME: 17
+
+CLIENT_3: delta_to_correct: -1
+
+CLIENT_3: FINAL_TIME: 17
+
+CLIENT_1: delta_to_correct: 7
+
+CLIENT_1: FINAL_TIME: 17
+
+CLIENT_2: delta_to_correct: 5
+
+CLIENT_2: FINAL_TIME: 17
+
+START_TIME ON RANK_4: 31
+
+CLIENT_4: delta_to_send: 21
+
+START_TIME ON RANK_5: 19
+
+CLIENT_5: delta_to_send: 9
+
+CLIENT_4: delta_to_correct: -14
+
+CLIENT_4: FINAL_TIME: 17
+
+CLIENT_5: delta_to_correct: -2
+
+CLIENT_5: FINAL_TIME: 17
+
