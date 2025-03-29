@@ -1,0 +1,142 @@
+RANK_3: START TIME: 0
+
+RANK_0: START TIME: 0
+
+RANK_0: internal:
+	new time: 1
+
+RANK_0: sending:
+	to: RANK_3
+	new time: 2
+
+RANK_1: START TIME: 0
+
+RANK_2: START TIME: 0
+
+RANK_2: NO COMMANDS 
+
+RANK_3: internal:
+	new time: 1
+
+RANK_1: sending:
+	to: RANK_0
+	new time: 1
+
+RANK_1: internal:
+	RANK_4: START TIME: 0
+
+RANK_4: sending:
+	to: RANK_3
+	new time: 1
+
+RANK_1: receiving:
+	from: RANK_0
+	old time: 2
+	new time: 3
+
+RANK_0: internal:
+	new time: 4
+
+RANK_0: sending:
+	to: RANK_1
+	new time: 5
+
+RANK_0: internal:
+	new time: 6
+
+RANK_5: START TIME: 0
+
+RANK_5: NO COMMANDS 
+
+RANK_4: receiving:
+	from: RANK_3
+	old time: 1
+	new time: 2
+
+RANK_0: receiving:
+	from: RANK_3
+	old time: 2
+	new time: 3
+
+RANK_3: sending:
+	to: RANK_1
+	new time: 4
+
+RANK_3: sending:
+	to: RANK_4
+	new time: 5
+
+RANK_6: START TIME: 0
+
+RANK_6: NO COMMANDS 
+
+RANK_3: sending:
+	to: RANK_0
+	new time: 6
+
+RANK_3: receiving:
+	from: RANK_0
+	old time: 6
+	new time: 7
+
+RANK_0: internal:
+	new time: 8
+
+RANK_0: FINAL TIME: 8
+
+RANK_4: internal:
+	new time: 2
+
+RANK_4: internal:
+	new time: 3
+
+RANK_3: receiving:
+	from: RANK_4
+	old time: 3
+	new time: 6
+
+RANK_4: internal:
+	new time: 7
+
+new time: 2
+
+RANK_3: receiving:
+	from: RANK_1
+	old time: 2
+	new time: 5
+
+RANK_0: receiving:
+	from: RANK_1
+	old time: 5
+	new time: 6
+
+RANK_1: sending:
+	to: RANK_3
+	new time: 7
+
+RANK_1: internal:
+	new time: 8
+
+RANK_1: FINAL TIME: 8
+
+RANK_1: receiving:
+	from: RANK_3
+	old time: 6
+	new time: 8
+
+RANK_3: sending:
+	to: RANK_4
+	new time: 9
+
+RANK_3: FINAL TIME: 9
+
+RANK_3: receiving:
+	from: RANK_4
+	old time: 7
+	new time: 10
+
+RANK_4: internal:
+	new time: 11
+
+RANK_4: FINAL TIME: 11
+
