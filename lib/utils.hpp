@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 /**
  * @brief Конвертирует тип, для которого определена операция ввода в std::string
@@ -31,4 +32,10 @@ int Sign(T x) {
     return -1;
   else
     return 0;
+}
+
+void PrintVector(const std::vector<int>& vec) {
+  printf("[");
+  for (size_t i = 0; i < vec.size(); ++i) printf("%d ", vec[i]);
+  printf("]");
 }
