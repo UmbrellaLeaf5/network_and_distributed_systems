@@ -5,6 +5,7 @@
     "dylib",
     "endforeach",
     "endfunction",
+    "iprobed",
     "maxfromlen",
     "maxlen",
     "qmlc",
