@@ -1,0 +1,112 @@
+RANK_0: START TIME: [0 0 0 0 0 0 ]
+
+RANK_0: internal:
+	new time: [1 0 0 0 0 0 ]
+
+RANK_0: sending:
+	to: RANK_5
+	new time: [2 0 0 0 0 0 ]
+
+RANK_1: START TIME: [0 0 0 0 0 0 ]
+
+RANK_2: START TIME: [0 0 0 0 0 0 ]
+
+RANK_2: NO COMMANDS 
+
+RANK_3: START TIME: [0 0 0 0 0 0 ]
+
+RANK_3: NO COMMANDS 
+
+RANK_4: START TIME: [0 0 0 0 0 0 ]
+
+RANK_1: sending:
+	to: RANK_0
+	new time: [0 1 0 0 0 0 ]
+
+RANK_5: START TIME: [0 0 0 0 0 0 ]
+
+RANK_1: receiving:
+	from: RANK_0
+	 time: [3 1 0 0 0 0 ]
+
+RANK_0: internal:
+	new time: [4 1 0 0 0 0 ]
+
+RANK_0: internal:
+	new time: [5 1 0 0 0 0 ]
+
+RANK_4: receiving:
+	from: RANK_1
+	 time: [0 2 0 0 1 0 ]
+
+RANK_1: internal:
+	new time: [0 3 0 0 1 0 ]
+
+RANK_1: sending:
+	to: RANK_4
+	new time: [0 4 0 0 1 0 ]
+
+RANK_4: sending:
+	to: RANK_1
+	new time: [0 0 0 0 1 0 ]
+
+RANK_4: internal:
+	new time: [0 0 0 0 2 0 ]
+
+RANK_5: receiving:
+	from: RANK_4
+	 time: [2 0 0 0 3 3 ]
+
+RANK_1: receiving:
+	from: RANK_4
+	 time: [2 4 0 0 4 3 ]
+
+RANK_4: sending:
+	to: RANK_0
+	new time: [2 4 0 0 5 3 ]
+
+RANK_5: internal:
+	new time: [0 0 0 0 0 1 ]
+
+RANK_0: receiving:
+	from: RANK_5
+	 time: [2 0 0 0 0 2 ]
+
+RANK_5: sending:
+	to: RANK_4
+	new time: [2 0 0 0 0 3 ]
+
+RANK_5: internal:
+	new time: [2 0 0 0 0 4 ]
+
+RANK_0: receiving:
+	from: RANK_1
+	 time: [7 5 0 0 5 3 ]
+
+RANK_1: FINAL TIME: [7 5 0 0 5 3 ]
+
+RANK_4: receiving:
+	from: RANK_0
+	 time: [6 4 0 0 5 3 ]
+
+RANK_0: sending:
+	to: RANK_1
+	new time: [7 4 0 0 5 3 ]
+
+RANK_0: internal:
+	new time: [8 4 0 0 5 3 ]
+
+RANK_0: FINAL TIME: [8 4 0 0 5 3 ]
+
+RANK_4: receiving:
+	from: RANK_5
+	 time: [2 4 0 0 6 5 ]
+
+RANK_5: FINAL TIME: [2 4 0 0 6 5 ]
+
+RANK_4: sending:
+	to: RANK_5
+	new time: [2 4 0 0 6 3 ]
+
+RANK_4: FINAL TIME: [2 4 0 0 6 3 ]
+

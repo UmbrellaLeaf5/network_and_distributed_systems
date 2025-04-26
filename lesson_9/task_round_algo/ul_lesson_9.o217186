@@ -1,0 +1,106 @@
+RANK_2: DEAD
+
+RANK_3: DEAD
+
+RANK_1:
+	SEND: cands -> RANK_2
+
+RANK_8: DEAD
+
+RANK_1:
+	RECEIVE: nothing <- RANK_2
+
+RANK_1:
+	SEND: cands -> RANK_3
+
+RANK_1:
+	RECEIVE: nothing <- RANK_3
+
+RANK_1:
+	SEND: cands -> RANK_4
+
+RANK_1: NEXT: RANK_4
+
+RANK_1: WAITING
+
+RANK_4:
+	RECEIVE: cands <- RANK_1
+
+RANK_4:
+	SEND: OK -> RANK_1
+
+RANK_4:
+	SEND: Vote -> RANK_5
+
+RANK_4: NEXT: RANK_5
+
+RANK_5:
+	RECEIVE: cands <- RANK_4
+
+RANK_5:
+	SEND: OK -> RANK_4
+
+RANK_5:
+	SEND: Vote -> RANK_6
+
+RANK_5: NEXT: RANK_6
+
+RANK_6:
+	RECEIVE: cands <- RANK_5
+
+RANK_6:
+	SEND: OK -> RANK_5
+
+RANK_6:
+	SEND: Vote -> RANK_7
+
+RANK_6: NEXT: RANK_7
+
+RANK_7:
+	RECEIVE: cands <- RANK_6
+
+RANK_7:
+	SEND: OK -> RANK_6
+
+RANK_7:
+	SEND: Vote -> RANK_8
+
+RANK_7:
+	SEND: Vote -> RANK_0
+
+RANK_1: CIRCLE CLOSE
+
+RANK_1:
+	CURR lead: RANK_7
+
+RANK_1:
+	CURR lead: RANK_7
+
+RANK_0:
+	RECEIVE: cands <- RANK_7
+
+RANK_0:
+	SEND: OK -> RANK_7
+
+RANK_0:
+	SEND: Vote -> RANK_1
+
+RANK_0: NEXT: RANK_1
+
+RANK_0:
+	CURR lead: RANK_7
+
+RANK_7: NEXT: RANK_0
+
+RANK_7:
+	CURR lead: RANK_7
+
+RANK_4:
+	CURR lead: RANK_7
+
+RANK_5:
+	CURR lead: RANK_7
+
+RANK_6:
+	CURR lead: RANK_7
+
