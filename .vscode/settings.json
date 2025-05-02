@@ -6,6 +6,7 @@
     "endforeach",
     "endfunction",
     "iprobed",
+    "Lamport",
     "maxfromlen",
     "maxlen",
     "qmlc",
@@ -25,6 +26,8 @@
     "Wextra",
     "Wfloat",
     "Wlogical",
-    "Wpedantic"
+    "Wpedantic",
+    "Лэмпорта",
+    "лэмпортовское"
   ]
 }
