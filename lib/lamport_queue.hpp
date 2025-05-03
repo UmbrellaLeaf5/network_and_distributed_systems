@@ -10,54 +10,20 @@ class Timestamp {
   int l_time_;
   int rank_;
 
-  // IDK: возможно, надо было как-то воспользоваться тем фактом, что размер
-  // очереди строго ограничен кол-вом всевозможных значений rank,
-  // (т.е. они уникальны) но вместо этого я просто храню третьим значением
-  // порядок входа этой метки в очередь (чтобы сохранить возможность
-  // использования `std::set` и он не удалял все метки с одним и тем же
-  // временем, так как только сравнения l_time_ < ts.L() ему недостаточно)
-  int enter_;
-
  public:
-  /**
-   * @brief Инициализирует новый экземпляр Timestamp
-   * @param l_time: лэмпортовское время отправки запроса на вход в критическую
-   * секцию процессом
-   * @param rank: ранг процесса
-   * @param enter: порядок появления метки (внутри очереди)
-   */
-  Timestamp(int l_time, int rank, int enter)
-      : l_time_(l_time), rank_(rank), enter_(enter) {}
-
   /**
    * @brief Инициализирует новый экземпляр Timestamp без времени появления
    * @param l_time: лэмпортовское время отправки запроса на вход в критическую
    * секцию процессом
    * @param rank: ранг процесса
    */
-  Timestamp(int l_time, int rank) : l_time_(l_time), rank_(rank), enter_(-1) {}
-
-  Timestamp(const Timestamp& ts, int enter)
-      : l_time_(ts.L()), rank_(ts.Rank()), enter_(enter) {
-    if (ts.IsQEntered())
-      std::cout << "WARNING: Timestamp::Timestamp: `ts` had another enter!"
-                << "\n";
-  }
+  Timestamp(int l_time, int rank) : l_time_(l_time), rank_(rank) {}
 
   /// @return int: лэмпортовское время
   int L() const { return l_time_; }
 
   /// @return int: ранг процесса
   int Rank() const { return rank_; }
-
-  /// @return int: порядок появления метки
-  int QEnter() const { return enter_; }
-
-  /**
-   * @return true: метка имеет порядок появления
-   * @return false: [не имеет соответственно]
-   */
-  bool IsQEntered() const { return enter_ != -1; }
 
   /**
    * @brief Переводит метку в статический массив из двух элементов
@@ -72,7 +38,8 @@ class Timestamp {
   std::array<int, 2> ToArray() const { return {l_time_, rank_}; }
 
   bool operator<(const Timestamp& ts) const {
-    return l_time_ < ts.L() || (l_time_ == ts.L() && enter_ < ts.QEnter());
+    // лексикографическое сравнение
+    return l_time_ < ts.L() || (l_time_ == ts.L() && rank_ < ts.Rank());
   }
 };
 
@@ -85,13 +52,12 @@ class LamportQueue {
   // IMP: возможно, тут не хватает проверок на то, что текущий ранг уже есть в
   // очереди, но так как для этого нужно пробегаться по ней всей в поисках, где
   // же есть такой ts, я оставляю адекватность использования на пользователя
+
  private:
   std::set<Timestamp> queue_;
   int ranks_amount_;
 
  public:
-  /// @brief Инициализирует новый экземпляр LamportQueue
-
   /**
    * @brief Инициализирует новый экземпляр LamportQueue
    * @param ranks_amount: максимальное кол-во процессов в очереди
@@ -106,8 +72,6 @@ class LamportQueue {
    * @param ts: временная метка
    */
   void Add(const Timestamp& ts) {
-    static int enter = 0;
-
     if (ts.Rank() >= ranks_amount_) {
       std::cout << "ERROR: LamportQueue::Add: ts.Rank() >= ranks_amount"
                 << "\n";
@@ -120,8 +84,7 @@ class LamportQueue {
       return;
     }
 
-    queue_.insert({ts, enter});
-    enter++;
+    queue_.insert(ts);
   }
 
   /**

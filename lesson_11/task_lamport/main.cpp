@@ -1,4 +1,4 @@
-#include "queue.hpp"
+#include "lamport_queue.hpp"
 
 int main() {
   LamportQueue lq(8);
