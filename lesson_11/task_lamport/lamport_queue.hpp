@@ -25,18 +25,6 @@ class Timestamp {
   /// @return int: ранг процесса
   int Rank() const { return rank_; }
 
-  /**
-   * @brief Переводит метку в статический массив из двух элементов
-   * @param arr: массив
-   */
-  void TransformToArray(int (&arr)[2]) const {
-    arr[0] = l_time_;
-    arr[1] = rank_;
-  }
-
-  /// @return std::array<int, 2>: метка в виде `std::array`
-  std::array<int, 2> ToArray() const { return {l_time_, rank_}; }
-
   bool operator<(const Timestamp& ts) const {
     // лексикографическое сравнение
     return l_time_ < ts.L() || (l_time_ == ts.L() && rank_ < ts.Rank());
@@ -121,7 +109,6 @@ class LamportQueue {
 
   friend std::ostream& operator<<(std::ostream& os, const LamportQueue& lq) {
     for (const auto& ts : lq.queue_) os << ts << "; ";
-
-    return os << "\n";
+    return os;
   }
 };

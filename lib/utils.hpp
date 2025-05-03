@@ -19,13 +19,13 @@ inline std::string ToString(T value) {
   return ss.str();
 }
 
-bool IsFileExists(const std::string& file_name) {
+inline bool IsFileExists(const std::string& file_name) {
   std::ifstream file(file_name.c_str());
   return file.good();
 }
 
 template <typename T>
-int Sign(T x) {
+inline int Sign(T x) {
   if (x > 0)
     return 1;
   else if (x < 0)
@@ -34,8 +34,15 @@ int Sign(T x) {
     return 0;
 }
 
-void PrintVector(const std::vector<int>& vec) {
+inline void PrintVector(const std::vector<int>& vec) {
   printf("[");
-  for (size_t i = 0; i < vec.size(); ++i) printf("%d ", vec[i]);
+  for (size_t i = 0; i < vec.size(); i++) printf("%d ", vec[i]);
   printf("]");
+}
+
+template <typename T>
+inline T Sum(const std::vector<T>& vec) {
+  T res = 0;
+  for (size_t i = 0; i < vec.size(); i++) res += vec[i];
+  return res;
 }
