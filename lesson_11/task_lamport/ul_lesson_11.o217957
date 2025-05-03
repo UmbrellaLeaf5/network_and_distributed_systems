@@ -1,0 +1,468 @@
+RANK_0: CURR_REPEAT: 1/3
+
+RANK_0: ENTER: prologue | time: 0
+
+RANK_0: QUEUE (in prologue): {1, 0}; | time: 1
+
+RANK_0: SEND_ALL: REQUEST | time: 1
+
+RANK_0: PERMS_AMOUNT: 0
+
+RANK_0: RECEIVE: REQUEST: {1, 1} | time: 2
+
+RANK_0: QUEUE (after REQUEST): {1, 0}; {1, 1}; | time: 2
+
+RANK_0: SEND_REPLY to: RANK_1 | time: 3
+
+RANK_0: PERMS_AMOUNT: 0
+
+RANK_0: RECEIVE: REQUEST: {1, 2} | time: 4
+
+RANK_0: QUEUE (after REQUEST): {1, 0}; {1, 1}; {1, 2}; | time: 4
+
+RANK_0: SEND_REPLY to: RANK_2 | time: 5
+
+RANK_0: PERMS_AMOUNT: 1
+
+RANK_0: RECEIVE: REPLY: {3, 1} | time: 6
+
+RANK_0: PERMS_AMOUNT: 2
+
+RANK_0: RECEIVE: REPLY: {5, 2} | time: 7
+
+RANK_0: ENTER: critical | time: 7
+
+RANK_1: CURR_REPEAT: 1/3
+
+RANK_1: ENTER: prologue | time: 0
+
+RANK_1: QUEUE (in prologue): {1, 1}; | time: 1
+
+RANK_1: SEND_ALL: REQUEST | time: 1
+
+RANK_1: PERMS_AMOUNT: 0
+
+RANK_1: RECEIVE: REQUEST: {1, 0} | time: 2
+
+RANK_1: QUEUE (after REQUEST): {1, 0}; {1, 1}; | time: 2
+
+RANK_1: SEND_REPLY to: RANK_0 | time: 3
+
+RANK_1: PERMS_AMOUNT: 0
+
+RANK_1: RECEIVE: REQUEST: {1, 2} | time: 4
+
+RANK_1: QUEUE (after REQUEST): {1, 0}; {1, 1}; {1, 2}; | time: 4
+
+RANK_1: SEND_REPLY to: RANK_2 | time: 5
+
+RANK_1: PERMS_AMOUNT: 1
+
+RANK_1: RECEIVE: REPLY: {3, 0} | time: 6
+
+RANK_1: PERMS_AMOUNT: 2
+
+RANK_1: RECEIVE: REPLY: {3, 2} | time: 7
+
+RANK_2: CURR_REPEAT: 1/3
+
+RANK_2: ENTER: prologue | time: 0
+
+RANK_2: QUEUE (in prologue): {1, 2}; | time: 1
+
+RANK_2: SEND_ALL: REQUEST | time: 1
+
+RANK_2: PERMS_AMOUNT: 0
+
+RANK_2: RECEIVE: REQUEST: {1, 1} | time: 2
+
+RANK_2: QUEUE (after REQUEST): {1, 1}; {1, 2}; | time: 2
+
+RANK_2: SEND_REPLY to: RANK_1 | time: 3
+
+RANK_2: PERMS_AMOUNT: 0
+
+RANK_2: RECEIVE: REQUEST: {1, 0} | time: 4
+
+RANK_2: QUEUE (after REQUEST): {1, 0}; {1, 1}; {1, 2}; | time: 4
+
+RANK_2: SEND_REPLY to: RANK_0 | time: 5
+
+RANK_2: PERMS_AMOUNT: 1
+
+RANK_2: RECEIVE: REPLY: {5, 1} | time: 6
+
+RANK_2: PERMS_AMOUNT: 2
+
+RANK_2: RECEIVE: REPLY: {5, 0} | time: 7
+
+RANK_0: ENTER: epilogue | time: 7
+
+RANK_0: QUEUE (in epilogue): {1, 1}; {1, 2}; | time: 7
+
+RANK_0: SEND_ALL: RELEASE | time: 8
+
+RANK_0: ENTER: remainder | time: 8
+
+RANK_1: PERMS_AMOUNT: 2
+
+RANK_1: RECEIVE: RELEASE: {8, 0} | time: 9
+
+RANK_1: QUEUE (after RELEASE): {1, 1}; {1, 2}; | time: 9
+
+RANK_1: ENTER: critical | time: 9
+
+RANK_2: PERMS_AMOUNT: 2
+
+RANK_2: RECEIVE: RELEASE: {8, 0} | time: 9
+
+RANK_2: QUEUE (after RELEASE): {1, 1}; {1, 2}; | time: 9
+
+RANK_2: PERMS_AMOUNT: 2
+
+RANK_2: RECEIVE: RELEASE: {10, 1} | time: 11
+
+RANK_2: QUEUE (after RELEASE): {1, 2}; | time: 11
+
+RANK_2: ENTER: critical | time: 11
+
+RANK_1: ENTER: epilogue | time: 9
+
+RANK_1: QUEUE (in epilogue): {1, 2}; | time: 9
+
+RANK_1: SEND_ALL: RELEASE | time: 10
+
+RANK_1: ENTER: remainder | time: 10
+
+RANK_0: RECEIVE: RELEASE: {10, 1} | time: 11
+
+RANK_0: QUEUE (after RELEASE): {1, 2}; | time: 11
+
+RANK_2: ENTER: epilogue | time: 11
+
+RANK_2: QUEUE (in epilogue): | time: 11
+
+RANK_2: SEND_ALL: RELEASE | time: 12
+
+RANK_2: ENTER: remainder | time: 12
+
+RANK_1: RECEIVE: RELEASE: {12, 2} | time: 13
+
+RANK_1: QUEUE (after RELEASE): | time: 13
+
+RANK_0: RECEIVE: RELEASE: {12, 2} | time: 13
+
+RANK_0: QUEUE (after RELEASE): | time: 13
+
+RANK_2: RECEIVE: REQUEST: {14, 0} | time: 15
+
+RANK_2: QUEUE (after REQUEST): {14, 0}; | time: 15
+
+RANK_2: SEND_REPLY to: RANK_0 | time: 16
+
+RANK_0: CURR_REPEAT: 2/3
+
+RANK_0: ENTER: prologue | time: 13
+
+RANK_0: QUEUE (in prologue): {14, 0}; | time: 14
+
+RANK_0: SEND_ALL: REQUEST | time: 14
+
+RANK_0: PERMS_AMOUNT: 1
+
+RANK_0: RECEIVE: REPLY: {16, 1} | time: 17
+
+RANK_0: PERMS_AMOUNT: 2
+
+RANK_0: RECEIVE: REPLY: {16, 2} | time: 18
+
+RANK_0: ENTER: critical | time: 18
+
+RANK_1: RECEIVE: REQUEST: {14, 0} | time: 15
+
+RANK_1: QUEUE (after REQUEST): {14, 0}; | time: 15
+
+RANK_1: SEND_REPLY to: RANK_0 | time: 16
+
+RANK_2: CURR_REPEAT: 2/3
+
+RANK_2: ENTER: prologue | time: 16
+
+RANK_2: QUEUE (in prologue): {14, 0}; {17, 2}; | time: 17
+
+RANK_2: SEND_ALL: REQUEST | time: 17
+
+RANK_2: PERMS_AMOUNT: 1
+
+RANK_2: RECEIVE: REPLY: {19, 1} | time: 20
+
+RANK_2: PERMS_AMOUNT: 2
+
+RANK_2: RECEIVE: REPLY: {20, 0} | time: 21
+
+RANK_1: RECEIVE: REQUEST: {17, 2} | time: 18
+
+RANK_1: QUEUE (after REQUEST): {14, 0}; {17, 2}; | time: 18
+
+RANK_1: SEND_REPLY to: RANK_2 | time: 19
+
+RANK_0: RECEIVE: REQUEST: {17, 2} | time: 19
+
+RANK_0: QUEUE (after REQUEST): {14, 0}; {17, 2}; | time: 19
+
+RANK_0: SEND_REPLY to: RANK_2 | time: 20
+
+RANK_0: ENTER: epilogue | time: 20
+
+RANK_0: QUEUE (in epilogue): {17, 2}; | time: 20
+
+RANK_0: SEND_ALL: RELEASE | time: 21
+
+RANK_0: ENTER: remainder | time: 21
+
+RANK_1: RECEIVE: RELEASE: {21, 0} | time: 22
+
+RANK_1: QUEUE (after RELEASE): {17, 2}; | time: 22
+
+RANK_2: PERMS_AMOUNT: 2
+
+RANK_2: RECEIVE: RELEASE: {21, 0} | time: 22
+
+RANK_2: QUEUE (after RELEASE): {17, 2}; | time: 22
+
+RANK_2: ENTER: critical | time: 22
+
+RANK_2: ENTER: epilogue | time: 22
+
+RANK_2: QUEUE (in epilogue): | time: 22
+
+RANK_2: SEND_ALL: RELEASE | time: 23
+
+RANK_2: ENTER: remainder | time: 23
+
+RANK_0: RECEIVE: RELEASE: {23, 2} | time: 24
+
+RANK_0: QUEUE (after RELEASE): | time: 24
+
+RANK_1: RECEIVE: RELEASE: {23, 2} | time: 24
+
+RANK_1: QUEUE (after RELEASE): | time: 24
+
+RANK_0: RECEIVE: REQUEST: {25, 1} | time: 26
+
+RANK_0: QUEUE (after REQUEST): {25, 1}; | time: 26
+
+RANK_0: SEND_REPLY to: RANK_1 | time: 27
+
+RANK_1: CURR_REPEAT: 2/3
+
+RANK_1: ENTER: prologue | time: 24
+
+RANK_1: QUEUE (in prologue): {25, 1}; | time: 25
+
+RANK_1: SEND_ALL: REQUEST | time: 25
+
+RANK_1: PERMS_AMOUNT: 1
+
+RANK_1: RECEIVE: REPLY: {27, 0} | time: 28
+
+RANK_1: PERMS_AMOUNT: 2
+
+RANK_1: RECEIVE: REPLY: {27, 2} | time: 29
+
+RANK_1: ENTER: critical | time: 29
+
+RANK_2: RECEIVE: REQUEST: {25, 1} | time: 26
+
+RANK_2: QUEUE (after REQUEST): {25, 1}; | time: 26
+
+RANK_2: SEND_REPLY to: RANK_1 | time: 27
+
+RANK_0: RECEIVE: RELEASE: {30, 1} | time: 31
+
+RANK_0: QUEUE (after RELEASE): | time: 31
+
+RANK_2: RECEIVE: RELEASE: {30, 1} | time: 31
+
+RANK_2: QUEUE (after RELEASE): | time: 31
+
+RANK_1: ENTER: epilogue | time: 29
+
+RANK_1: QUEUE (in epilogue): | time: 29
+
+RANK_1: SEND_ALL: RELEASE | time: 30
+
+RANK_1: ENTER: remainder | time: 30
+
+RANK_2: RECEIVE: REQUEST: {32, 0} | time: 33
+
+RANK_2: QUEUE (after REQUEST): {32, 0}; | time: 33
+
+RANK_2: SEND_REPLY to: RANK_0 | time: 34
+
+RANK_0: CURR_REPEAT: 3/3
+
+RANK_0: ENTER: prologue | time: 31
+
+RANK_0: QUEUE (in prologue): {32, 0}; | time: 32
+
+RANK_0: SEND_ALL: REQUEST | time: 32
+
+RANK_0: PERMS_AMOUNT: 1
+
+RANK_0: RECEIVE: REPLY: {34, 1} | time: 35
+
+RANK_0: PERMS_AMOUNT: 2
+
+RANK_0: RECEIVE: REPLY: {34, 2} | time: 36
+
+RANK_0: ENTER: critical | time: 36
+
+RANK_1: RECEIVE: REQUEST: {32, 0} | time: 33
+
+RANK_1: QUEUE (after REQUEST): {32, 0}; | time: 33
+
+RANK_1: SEND_REPLY to: RANK_0 | time: 34
+
+RANK_0: RECEIVE: REQUEST: {35, 2} | time: 37
+
+RANK_0: QUEUE (after REQUEST): {32, 0}; {35, 2}; | time: 37
+
+RANK_0: SEND_REPLY to: RANK_2 | time: 38
+
+RANK_0: ENTER: epilogue | time: 38
+
+RANK_0: QUEUE (in epilogue): {35, 2}; | time: 38
+
+RANK_0: SEND_ALL: RELEASE | time: 39
+
+RANK_0: ENTER: remainder | time: 39
+
+RANK_2: CURR_REPEAT: 3/3
+
+RANK_2: ENTER: prologue | time: 34
+
+RANK_2: QUEUE (in prologue): {32, 0}; {35, 2}; | time: 35
+
+RANK_2: SEND_ALL: REQUEST | time: 35
+
+RANK_2: PERMS_AMOUNT: 1
+
+RANK_2: RECEIVE: REPLY: {37, 1} | time: 38
+
+RANK_2: PERMS_AMOUNT: 2
+
+RANK_2: RECEIVE: REPLY: {38, 0} | time: 39
+
+RANK_2: PERMS_AMOUNT: 2
+
+RANK_2: RECEIVE: RELEASE: {39, 0} | time: 40
+
+RANK_2: QUEUE (after RELEASE): {35, 2}; | time: 40
+
+RANK_2: ENTER: critical | time: 40
+
+RANK_1: RECEIVE: REQUEST: {35, 2} | time: 36
+
+RANK_1: QUEUE (after REQUEST): {32, 0}; {35, 2}; | time: 36
+
+RANK_1: SEND_REPLY to: RANK_2 | time: 37
+
+RANK_1: RECEIVE: RELEASE: {39, 0} | time: 40
+
+RANK_1: QUEUE (after RELEASE): {35, 2}; | time: 40
+
+RANK_2: RECEIVE: REQUEST: {41, 1} | time: 42
+
+RANK_2: QUEUE (after REQUEST): {35, 2}; {41, 1}; | time: 42
+
+RANK_2: SEND_REPLY to: RANK_1 | time: 43
+
+RANK_2: ENTER: epilogue | time: 43
+
+RANK_2: QUEUE (in epilogue): {41, 1}; | time: 43
+
+RANK_2: SEND_ALL: RELEASE | time: 44
+
+RANK_2: ENTER: remainder | time: 44
+
+RANK_0: RECEIVE: REQUEST: {41, 1} | time: 42
+
+RANK_0: QUEUE (after REQUEST): {35, 2}; {41, 1}; | time: 42
+
+RANK_0: SEND_REPLY to: RANK_1 | time: 43
+
+RANK_0: RECEIVE: RELEASE: {44, 2} | time: 45
+
+RANK_0: QUEUE (after RELEASE): {41, 1}; | time: 45
+
+RANK_1: CURR_REPEAT: 3/3
+
+RANK_1: ENTER: prologue | time: 40
+
+RANK_1: QUEUE (in prologue): {35, 2}; {41, 1}; | time: 41
+
+RANK_1: SEND_ALL: REQUEST | time: 41
+
+RANK_1: PERMS_AMOUNT: 1
+
+RANK_1: RECEIVE: REPLY: {43, 2} | time: 44
+
+RANK_1: PERMS_AMOUNT: 2
+
+RANK_1: RECEIVE: REPLY: {43, 0} | time: 45
+
+RANK_1: PERMS_AMOUNT: 2
+
+RANK_1: RECEIVE: RELEASE: {44, 2} | time: 46
+
+RANK_1: QUEUE (after RELEASE): {41, 1}; | time: 46
+
+RANK_1: ENTER: critical | time: 46
+
+RANK_0: RECEIVE: RELEASE: {47, 1} | time: 48
+
+RANK_0: QUEUE (after RELEASE): | time: 48
+
+RANK_2: RECEIVE: RELEASE: {47, 1} | time: 48
+
+RANK_2: QUEUE (after RELEASE): | time: 48
+
+RANK_1: ENTER: epilogue | time: 46
+
+RANK_1: QUEUE (in epilogue): | time: 46
+
+RANK_1: SEND_ALL: RELEASE | time: 47
+
+RANK_1: ENTER: remainder | time: 47
+
+RANK_2: SEND_ALL: FIN | time: 49
+
+RANK_0: RECEIVE: FIN: {49, 2} | time: 50
+
+RANK_1: RECEIVE: FIN: {49, 2} | time: 50
+
+RANK_0: SEND_ALL: FIN | time: 51
+
+RANK_2: PERMS_AMOUNT: 2
+
+RANK_2: RECEIVE: FIN: {51, 0} | time: 52
+
+RANK_1: RECEIVE: FIN: {51, 0} | time: 52
+
+RANK_2: PERMS_AMOUNT: 2
+
+RANK_2: RECEIVE: FIN: {53, 1} | time: 54
+
+RANK_2: FINISHED with time: 54
+
+RANK_0: PERMS_AMOUNT: 2
+
+RANK_0: RECEIVE: FIN: {53, 1} | time: 54
+
+RANK_0: FINISHED with time: 54
+
+RANK_1: SEND_ALL: FIN | time: 53
+
+RANK_1: FINISHED with time: 53
+

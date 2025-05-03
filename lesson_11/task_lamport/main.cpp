@@ -14,7 +14,15 @@
 #include <vector>
 
 #include "lamport_queue.hpp"
-#include "utils.hpp"
+
+// MARK: SUM
+
+template <typename T>
+inline T Sum(const std::vector<T>& vec) {
+  T res = 0;
+  for (size_t i = 0; i < vec.size(); i++) res += vec[i];
+  return res;
+}
 
 // MARK: RANDOM
 
@@ -66,8 +74,6 @@ constexpr int repeat = 3;
 // MARK: Special FUNCS
 
 void SendAll(int rank, int ranks_amount, int tag) {
-  LAMPORT_TICK;
-
   for (int other_rank = 0; other_rank < ranks_amount; other_rank++)
     if (other_rank != rank)
       CHECK_SUCCESS(
@@ -82,35 +88,45 @@ void SendAll(int rank, int ranks_amount, int tag) {
 }
 
 // (same part for `Work` and `ProcessMessages` functions)
-#define HANDLE_MESSAGE                                                   \
-  {                                                                      \
-    printf("RANK_%d: RECEIVE: %s: {%d, %d} | time: %d\n\n", rank,        \
-           status.MPI_TAG == request_tag   ? "REQUEST"                   \
-           : status.MPI_TAG == reply_tag   ? "REPLY"                     \
-           : status.MPI_TAG == release_tag ? "RELEASE"                   \
-           : status.MPI_TAG == final_tag   ? "FIN"                       \
-                                           : "UNKNOWN",                    \
-           message_time, status.MPI_SOURCE, local_time);                 \
-                                                                         \
-    if (status.MPI_TAG == request_tag) {                                 \
-      lq.Add({message_time, status.MPI_SOURCE});                         \
-      std::cout << "RANK_" << rank << ": QUEUE (after REQUEST): " << lq  \
-                << "| time: " << local_time << "\n\n";                   \
-                                                                         \
-      LAMPORT_TICK;                                                      \
-      CHECK_SUCCESS(MPI_Send(&local_time, 1, MPI_INT, status.MPI_SOURCE, \
-                             reply_tag, MPI_COMM_WORLD));                \
-                                                                         \
-      printf("RANK_%d: SEND_REPLY to: RANK_%d | time: %d\n\n", rank,     \
-             status.MPI_SOURCE, local_time);                             \
-                                                                         \
-    } else if (status.MPI_TAG == release_tag) {                          \
-      lq.Remove(status.MPI_SOURCE);                                      \
-      std::cout << "RANK_" << rank << ": QUEUE (after RELEASE): " << lq  \
-                << "| time: " << local_time << "\n\n";                   \
-                                                                         \
-    } else if (status.MPI_TAG == final_tag)                              \
-      fins_amount++;                                                     \
+#define HANDLE_MESSAGE                                                     \
+  {                                                                        \
+    printf("RANK_%d: RECEIVE: %s: {%d, %d} | time: %d\n\n", rank,          \
+           status.MPI_TAG == request_tag   ? "REQUEST"                     \
+           : status.MPI_TAG == reply_tag   ? "REPLY"                       \
+           : status.MPI_TAG == release_tag ? "RELEASE"                     \
+           : status.MPI_TAG == final_tag   ? "FIN"                         \
+                                           : "UNKNOWN",                      \
+           message_time, status.MPI_SOURCE, local_time);                   \
+                                                                           \
+    switch (status.MPI_TAG) {                                              \
+      case request_tag: {                                                  \
+        lq.Add({message_time, status.MPI_SOURCE});                         \
+        std::cout << "RANK_" << rank << ": QUEUE (after REQUEST): " << lq  \
+                  << "| time: " << local_time << "\n\n";                   \
+                                                                           \
+        LAMPORT_TICK;                                                      \
+        CHECK_SUCCESS(MPI_Send(&local_time, 1, MPI_INT, status.MPI_SOURCE, \
+                               reply_tag, MPI_COMM_WORLD));                \
+                                                                           \
+        printf("RANK_%d: SEND_REPLY to: RANK_%d | time: %d\n\n", rank,     \
+               status.MPI_SOURCE, local_time);                             \
+        break;                                                             \
+      }                                                                    \
+                                                                           \
+      case release_tag: {                                                  \
+        lq.Remove(status.MPI_SOURCE);                                      \
+        std::cout << "RANK_" << rank << ": QUEUE (after RELEASE): " << lq  \
+                  << "| time: " << local_time << "\n\n";                   \
+        break;                                                             \
+      }                                                                    \
+                                                                           \
+      case final_tag:                                                      \
+        fins_amount++;                                                     \
+        break;                                                             \
+                                                                           \
+      default:                                                             \
+        break;                                                             \
+    }                                                                      \
   }
 
 void Work(int rank, int seconds, LamportQueue& lq, int& fins_amount) {
@@ -118,13 +134,13 @@ void Work(int rank, int seconds, LamportQueue& lq, int& fins_amount) {
   ALARM_RAND(seconds);
 
   while (sigflag) {
-    int flag;
+    int flag = 0;
     CHECK_SUCCESS(MPI_Iprobe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &flag,
                              &status));
 
     if (flag) {
       int message_time;
-      CHECK_SUCCESS(MPI_Recv(&message_time, 1, MPI_INT, status.MPI_SOURCE,
+      CHECK_SUCCESS(MPI_Recv(&message_time, 1, MPI_INT, MPI_ANY_SOURCE,
                              status.MPI_TAG, MPI_COMM_WORLD, &status));
 
       LAMPORT_UPDATE(message_time);
@@ -134,9 +150,9 @@ void Work(int rank, int seconds, LamportQueue& lq, int& fins_amount) {
   }
 }
 
-void ProcessMessages(int rank, bool collect_permissions, int send_req_time,
-                     std::vector<int>& perms, LamportQueue& lq,
-                     int& fins_amount) {
+void ProcessMessages(int rank, std::vector<int>& perms, LamportQueue& lq,
+                     int& fins_amount, bool collect_permissions = false,
+                     int send_req_time = -1) {
   int flag;
   CHECK_SUCCESS(
       MPI_Iprobe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &flag, &status));
@@ -171,7 +187,7 @@ int main(int argc, char* argv[]) {
   CHECK_SUCCESS(MPI_Comm_size(MPI_COMM_WORLD, &ranks_amount));
 
   LamportQueue lq(ranks_amount);
-  std::vector<int> perms(ranks_amount, 0);
+  std::vector<int> perms(ranks_amount);
 
   int rank;
   CHECK_SUCCESS(MPI_Comm_rank(MPI_COMM_WORLD, &rank));
@@ -181,8 +197,10 @@ int main(int argc, char* argv[]) {
   srand(rank);
 
   for (int repeating_count = 0; repeating_count < repeat; repeating_count++) {
-    printf("\n\tCURR_REPEAT: %d/%d (RANK_%d)\n\n\n", repeating_count + 1,
-           repeat, rank);
+    perms = std::vector<int>(ranks_amount, 0);
+
+    printf("RANK_%d: CURR_REPEAT: %d/%d\n\n", rank, repeating_count + 1,
+           repeat);
     printf("RANK_%d: ENTER: prologue | time: %d\n\n", rank, local_time);
 
     LAMPORT_TICK;
@@ -195,7 +213,7 @@ int main(int argc, char* argv[]) {
     int send_req_time = local_time;
 
     while (Sum(perms) < ranks_amount - 1 || !lq.IsHead(rank))
-      ProcessMessages(rank, true, send_req_time, perms, lq, fins_amount);
+      ProcessMessages(rank, perms, lq, fins_amount, true, send_req_time);
 
     printf("RANK_%d: ENTER: critical | time: %d\n\n", rank, local_time);
 
@@ -207,16 +225,18 @@ int main(int argc, char* argv[]) {
     std::cout << "RANK_" << rank << ": QUEUE (in epilogue): " << lq
               << "| time: " << local_time << "\n\n";
 
+    LAMPORT_TICK;
     SendAll(rank, ranks_amount, release_tag);
 
     printf("RANK_%d: ENTER: remainder | time: %d\n\n", rank, local_time);
     Work(rank, reminder_time, lq, fins_amount);
   }
 
+  LAMPORT_TICK;
   SendAll(rank, ranks_amount, final_tag);
 
   while (fins_amount < ranks_amount - 1)
-    ProcessMessages(rank, false, -1, perms, lq, fins_amount);
+    ProcessMessages(rank, perms, lq, fins_amount);
 
   printf("RANK_%d: FINISHED with time: %d\n\n", rank, local_time);
   MPI_Finalize();
