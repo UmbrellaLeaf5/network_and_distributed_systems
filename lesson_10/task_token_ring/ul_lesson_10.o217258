@@ -1,0 +1,248 @@
+RANK_0: WAITS marker
+
+RANK_1: WAITS marker
+
+RANK_1:
+	RECEIVE: marker <- RANK_0
+
+RANK_1: GO critical
+
+RANK_2: WAITS marker
+
+RANK_3: WAITS marker
+
+RANK_4: WAITS marker
+
+RANK_5: WAITS marker
+
+RANK_1: SLEEP
+
+RANK_2:
+	RECEIVE: marker <- RANK_1
+
+RANK_2: GO critical
+
+RANK_2: SLEEP
+
+RANK_3:
+	RECEIVE: marker <- RANK_2
+
+RANK_3: GO critical
+
+RANK_1: WAITS marker
+
+RANK_3: SLEEP
+
+RANK_4:
+	RECEIVE: marker <- RANK_3
+
+RANK_4: GO critical
+
+RANK_3: WAITS marker
+
+RANK_4: SLEEP
+
+RANK_5:
+	RECEIVE: marker <- RANK_4
+
+RANK_5: GO critical
+
+RANK_0:
+	RECEIVE: marker <- RANK_5
+
+RANK_0: GO critical
+
+RANK_5: SLEEP
+
+RANK_2: WAITS marker
+
+RANK_4: WAITS marker
+
+RANK_1:
+	RECEIVE: marker <- RANK_0
+
+RANK_1: GO critical
+
+RANK_0: SLEEP
+
+RANK_5: WAITS marker
+
+RANK_1: SLEEP
+
+RANK_2:
+	RECEIVE: marker <- RANK_1
+
+RANK_2: GO critical
+
+RANK_2: SLEEP
+
+RANK_3:
+	RECEIVE: marker <- RANK_2
+
+RANK_3: GO critical
+
+RANK_1: WAITS marker
+
+RANK_0: WAITS marker
+
+RANK_2: WAITS marker
+
+RANK_3: SLEEP
+
+RANK_4:
+	RECEIVE: marker <- RANK_3
+
+RANK_4: GO critical
+
+RANK_4: SLEEP
+
+RANK_5:
+	RECEIVE: marker <- RANK_4
+
+RANK_5: GO critical
+
+RANK_3: WAITS marker
+
+RANK_0:
+	RECEIVE: marker <- RANK_5
+
+RANK_0: GO critical
+
+RANK_5: SLEEP
+
+RANK_0: SLEEP
+
+RANK_1:
+	RECEIVE: marker <- RANK_0
+
+RANK_1: GO critical
+
+RANK_5: WAITS marker
+
+RANK_2:
+	RECEIVE: marker <- RANK_1
+
+RANK_2: GO critical
+
+RANK_1: SLEEP
+
+RANK_4: WAITS marker
+
+RANK_0: WAITS marker
+
+RANK_2: SLEEP
+
+RANK_3:
+	RECEIVE: marker <- RANK_2
+
+RANK_3: GO critical
+
+RANK_3: SLEEP
+
+RANK_4:
+	RECEIVE: marker <- RANK_3
+
+RANK_4: GO critical
+
+RANK_4: SLEEP
+
+RANK_5:
+	RECEIVE: marker <- RANK_4
+
+RANK_5: GO critical
+
+RANK_0:
+	RECEIVE: marker <- RANK_5
+
+RANK_0: GO critical
+
+RANK_5: SLEEP
+
+RANK_0: SLEEP
+
+RANK_2:
+	RECEIVE: FIN <- RANK_1
+
+RANK_2:
+	SEND: FIN -> RANK_3 (next)
+
+RANK_2:
+	RECEIVE: FIN <- RANK_1
+
+RANK_2:
+	SEND: FIN -> RANK_3 (next)
+
+RANK_2: FINISHED
+
+RANK_1:
+	RECEIVE: FIN <- RANK_0
+
+RANK_1:
+	SEND: FIN -> RANK_2 (next)
+
+RANK_1:
+	RECEIVE: FIN <- RANK_0
+
+RANK_1:
+	SEND: FIN -> RANK_2 (next)
+
+RANK_1: FINISHED
+
+RANK_3:
+	RECEIVE: FIN <- RANK_2
+
+RANK_3:
+	SEND: FIN -> RANK_4 (next)
+
+RANK_3:
+	RECEIVE: FIN <- RANK_2
+
+RANK_3:
+	SEND: FIN -> RANK_4 (next)
+
+RANK_3: FINISHED
+
+RANK_0: ENTER final section
+
+RANK_0:
+	RECEIVE: FIN <- RANK_5
+
+RANK_0:
+	SEND: FIN -> RANK_1 (next)
+
+RANK_4:
+	RECEIVE: FIN <- RANK_3
+
+RANK_4:
+	SEND: FIN -> RANK_5 (next)
+
+RANK_4:
+	RECEIVE: FIN <- RANK_3
+
+RANK_4:
+	SEND: FIN -> RANK_5 (next)
+
+RANK_4: FINISHED
+
+RANK_5:
+	RECEIVE: FIN <- RANK_4
+
+RANK_5:
+	SEND: FIN -> RANK_0 (next)
+
+RANK_5:
+	RECEIVE: FIN <- RANK_4
+
+RANK_5:
+	SEND: FIN -> RANK_0 (next)
+
+RANK_5: FINISHED
+
+RANK_0:
+	RECEIVE: FIN <- RANK_5
+
+RANK_0:
+	SEND: FIN -> RANK_1 (next)
+
+RANK_0: FINISHED
+
