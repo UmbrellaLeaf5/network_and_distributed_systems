@@ -50,5 +50,5 @@ foreach(SUBDIR ${SUBDIRS})
 endforeach()
 
 # For this project
-file(GLOB_RECURSE EXCEPT_FILES "*.sh" "*.o*" "*.e*" "*.md")
+file(GLOB_RECURSE EXCEPT_FILES "*.sh" "*.o*" "*.e*" "*.md" "*.pptx")
 CopyExtraFiles(EXCEPT_FILES)
